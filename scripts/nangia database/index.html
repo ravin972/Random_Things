@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Information Form and Search</title>
+</head>
+<body>
+    <h1>User Information Form and Search</h1>
+    
+    <!-- User Information Form -->
+    <h2>User Information Form</h2>
+    <form action="process.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <!-- Search User Information -->
+    <h2>Search User Information</h2>
+    <form action="search.php" method="post">
+        <label for="searchName">Search by Name:</label>
+        <input type="text" name="searchName" required>
+        <input type="submit" value="Search">
+    </form>
+</body>
+</html>
