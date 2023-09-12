@@ -17,7 +17,7 @@ tool = LanguageTool('en-US')
 # Define a function to check and highlight errors
 def check_and_highlight_errors(text, run):
     matches = tool.check(text)
-    for match in matches:
+    for match in reversed(matches):  # Start from the end to avoid offset changes
         start = match.offset
         end = match.offset + match.errorLength
         run.text = run.text[:start] + run.text[start:end].replace('\n', ' ') + run.text[end:]
@@ -33,3 +33,5 @@ for paragraph in doc.paragraphs:
 
 # Save the modified document with the specified output file name
 doc.save(output_file_name)
+
+print(f"Errors highlighted and saved in '{output_file_name}'")

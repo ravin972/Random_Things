@@ -3,14 +3,19 @@
 $dbFile = "user_data.db";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
+    // Validate and sanitize user inputs
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
-    // Create or open the SQLite database
+    if (!$name || !$email) {
+        die("Invalid input data.");
+    }
+
+    // Create or open the SQLite database with error handling
     $db = new SQLite3($dbFile);
 
     if (!$db) {
-        die("SQLite connection failed.");
+        die("SQLite connection failed: " . $db->lastErrorMsg());
     }
 
     // Insert user information into the 'users' table

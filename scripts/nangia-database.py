@@ -12,8 +12,15 @@ cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
-        email TEXT,
-        uploaded_file TEXT
+        email TEXT
+    )
+''')
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS uploaded_files (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        file_path TEXT,
+        FOREIGN KEY (user_id) REFERENCES users (id)
     )
 ''')
 conn.commit()
@@ -126,9 +133,6 @@ search_label = tk.Label(app, text="Search by Name:")
 search_label.pack()
 search_entry = tk.Entry(app)
 search_entry.pack()
-
-# Create button to search for data (initially hidden)
-search_button = tk.Button(app, text="Search", command=retrieve_data)
 
 # Create a text widget to display search results
 result_text = tk.Text(app, height=10, width=40)

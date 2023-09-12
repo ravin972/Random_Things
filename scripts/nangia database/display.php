@@ -14,16 +14,20 @@
         // SQLite database file
         $dbFile = "user_data.db";
 
-        // Create or open the SQLite database
+        // Create or open the SQLite database with error handling
         $db = new SQLite3($dbFile);
 
         if (!$db) {
-            die("SQLite connection failed.");
+            die("SQLite connection failed: " . $db->lastErrorMsg());
         }
 
         // Retrieve and display user information
         $query = "SELECT * FROM users";
         $result = $db->query($query);
+
+        if (!$result) {
+            die("Query execution failed: " . $db->lastErrorMsg());
+        }
 
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             echo "<tr>";
